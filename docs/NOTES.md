@@ -3,11 +3,10 @@
 ## Initial plan
 
 Goal: rank the next 7 days for:
-
-* skiing
-* surfing
-* outdoor sightseeing
-* indoor sightseeing
+- skiing
+- surfing
+- outdoor sightseeing
+- indoor sightseeing
 
 High-level flow:
 
@@ -40,23 +39,34 @@ Before implementing the scoring, I need to understand what data Open-Meteo provi
 - Open-Meteo can be called for each request.
 - Skiing and surfing will initially represent weather suitability rather than whether a ski resort or surf spot actually exists at the location.
 
-These assumptions may change after exploring the available Open-Meteo data.
+These assumptions may change as I explore the available data and scoring requirements.
 
 ## Scope
 
 Prioritize:
-
 - clear and explainable scoring
 - GraphQL API
 - simple React interface
 - loading and error states
 - tests for scoring logic
 
+
+## Decision log
+
 ### Open-Meteo research
 
-Explored the Geocoding, Forecast and Marine APIs.
+I explored the Geocoding, Forecast and Marine APIs.
 
-I decided to primarily use daily forecast data because the product
-ranks days rather than individual hours.
+I decided to primarily use daily forecast data because the product ranks entire days rather than individual hours.
+
+While investigating skiing conditions, I found one important limitation: daily snowfall describes new snowfall but does not describe how much snow is already on the ground.
 
 Detailed findings: [Open-Meteo research](./open-meteo.md)
+
+### Scoring
+
+I started defining the activity scores after identifying the forecast data available from Open-Meteo.
+
+The initial approach is to keep each score explainable rather than trying to model every possible weather factor.
+
+Detailed reasoning: [Scoring research](./scoring.md)
