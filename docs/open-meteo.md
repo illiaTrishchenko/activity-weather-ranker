@@ -28,20 +28,24 @@ Relevant daily measurements:
 - maximum/minimum temperature
 - maximum apparent temperature
 - precipitation sum
-- maximum precipitation probability
+- precipitation hours
 - snowfall sum
 - maximum wind speed
 - sunshine duration
+- daylight duration
 
 One limitation for skiing is that snowfall represents new snow during the day rather than the amount of snow already on the ground.
 
 Snow depth is available as an hourly variable.
 
-### Initial decision
+### Decision
 
-Start with daily weather data and only introduce hourly data if it materially improves an activity score.
+Use daily weather data for outdoor and indoor sightseeing, where the product needs one explainable score for each day.
 
-The skiing research later showed that snow depth may be important enough to justify this additional data.
+Use hourly weather data when it materially improves an activity score:
+
+- skiing uses hourly `snow_depth`, aggregated for each day
+- surfing uses hourly wind speed, weather code, and daylight status
 
 ---
 
@@ -49,28 +53,34 @@ The skiing research later showed that snow depth may be important enough to just
 
 Open-Meteo provides a separate Marine API with both hourly and daily marine forecasts.
 
-Relevant daily measurements for surfing:
+Relevant hourly measurements for surfing:
 
-- maximum wave height
-- maximum wave period
-- maximum swell wave height
-- maximum swell wave period
+- wave height
+- wave period
 
-Wind speed can come from the regular weather forecast.
+Wind speed, weather code, and daylight status come from the regular weather forecast.
 
 ### Decision
 
-Use daily marine aggregates rather than hourly marine data, since the product ranks days rather than individual hours.
+Use hourly marine values rather than daily aggregates. Daily maximum wave height and daily maximum wave period can occur in different hours, which would create an artificial combination of the best values.
+
+For each day, calculate an hourly surf score during daylight and use the best valid hour as the daily score.
+
+Request the weather forecast at the Marine API's returned grid-cell coordinates, so wind is measured near the waves rather than at the centre of the searched town.
 
 I considered wave and swell direction, but decided not to include them initially.
 
 Whether a particular direction is good depends on the orientation of the specific surf break, which this service does not know.
 
+### Location availability
+
+Request the Marine API with `cell_selection=sea` and compare the returned sea grid-cell coordinates with the geocoded city or town coordinates.
+
+Only provide a surfing score when the selected sea cell is within 25 km. Otherwise return surfing as unavailable rather than producing a misleading score for an inland location.
+
 ### Limitation
 
-The surfing score will represent general sea and weather conditions rather than the quality of a specific surf spot.
-
-An unresolved question is how surfing should be represented for inland locations where marine data is unavailable.
+The surfing score represents general marine and weather conditions near a place, not the quality or safety of a specific surf spot.
 
 ---
 

@@ -38,7 +38,8 @@ Before implementing the scoring, I need to understand what data Open-Meteo provi
 - Scores should be absolute rather than relative to the other six days.
 - No persistence is required.
 - Open-Meteo can be called for each request.
-- Skiing and surfing will initially represent weather suitability rather than whether a ski resort or surf spot actually exists at the location.
+- Skiing represents weather suitability at the geocoded location rather than conditions at a specific resort.
+- Surfing is available only when the nearest selected sea grid cell is within 25 km; it represents general nearby marine conditions rather than a specific surf break.
 
 These assumptions may change as I explore the available data and scoring requirements.
 
@@ -59,7 +60,7 @@ Prioritize:
 
 I explored the Geocoding, Forecast and Marine APIs.
 
-I decided to primarily use daily forecast data because the product ranks entire days rather than individual hours.
+I decided to primarily use daily forecast data because the product ranks entire days rather than individual hours. Skiing and surfing are explicit exceptions where hourly data prevents misleading results.
 
 While investigating skiing conditions, I found one important limitation: daily snowfall describes new snowfall but does not describe how much snow is already on the ground.
 

@@ -1,3 +1,5 @@
+# Surfing Scoring
+
 ## Initial research
 
 Surfing differs from the other activities because suitable conditions depend heavily on both marine conditions and the characteristics of a specific surf break.
