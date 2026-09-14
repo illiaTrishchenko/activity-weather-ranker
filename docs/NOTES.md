@@ -3,6 +3,7 @@
 ## Initial plan
 
 Goal: rank the next 7 days for:
+
 - skiing
 - surfing
 - outdoor sightseeing
@@ -44,6 +45,7 @@ These assumptions may change as I explore the available data and scoring require
 ## Scope
 
 Prioritize:
+
 - clear and explainable scoring
 - GraphQL API
 - simple React interface
@@ -69,4 +71,4 @@ I started defining the activity scores after identifying the forecast data avail
 
 The initial approach is to keep each score explainable rather than trying to model every possible weather factor.
 
-Detailed reasoning: [Scoring research](./scoring.md)
+Detailed reasoning: [Scoring research](./scoring/README.md)

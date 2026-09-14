@@ -1,4 +1,6 @@
-### Initial research
+# Skiing Scoring
+
+## Initial research
 
 The main factors I identified for a general skiing weather score are:
 
@@ -15,7 +17,7 @@ Wind should reduce the score as it becomes stronger. Strong winds can make skiin
 
 Fresh snowfall can improve conditions, but heavy snowfall combined with strong wind can also reduce visibility and make conditions worse.
 
-### Snow depth
+## Snow depth
 
 During the Open-Meteo research I initially planned to avoid hourly data.
 
@@ -23,13 +25,13 @@ However, `snowfall_sum` only describes new snowfall. A day with no new snowfall 
 
 Open-Meteo exposes `snow_depth` as an hourly variable.
 
-### Decision
+## Decision
 
 Use `snow_depth` in addition to daily snowfall for the skiing score.
 
 This introduces hourly data and requires a daily aggregation, but snow availability is important enough to justify the additional complexity.
 
-### Scoring model
+## Scoring model
 
 I decided to use a weighted score from 0 to 100:
 
@@ -43,7 +45,7 @@ Snow depth has the largest individual weight because suitable temperature and wi
 
 Fresh snowfall is treated separately from existing snow. No fresh snow does not necessarily mean poor skiing conditions, while moderate fresh snow can improve them.
 
-#### Snow depth
+### Snow depth
 
 Initial thresholds:
 
@@ -53,7 +55,7 @@ Initial thresholds:
 - 5–15 cm: poor
 - below 5 cm: effectively unsuitable
 
-#### Fresh snowfall
+### Fresh snowfall
 
 Moderate fresh snowfall is positive, but very heavy snowfall is not treated as automatically better because it can also make conditions more difficult.
 
@@ -65,7 +67,7 @@ Initial thresholds:
 - 15–30 cm: good but less ideal
 - above 30 cm: reduced score
 
-#### Temperature
+### Temperature
 
 I prefer a small range below freezing rather than simply rewarding colder temperatures.
 
@@ -78,7 +80,7 @@ Initial thresholds:
 - above 5°C: increasingly unsuitable
 - below -15°C: reduced due to comfort
 
-#### Wind
+### Wind
 
 Wind progressively reduces the score:
 
@@ -88,7 +90,7 @@ Wind progressively reduces the score:
 - 40–60 km/h: poor
 - above 60 km/h: unsuitable
 
-#### Weather severity
+### Weather severity
 
 Weather codes are used as a smaller adjustment.
 
@@ -98,7 +100,7 @@ Fog, heavy precipitation and thunderstorms reduce the score.
 
 The exact mapping will be based on Open-Meteo weather codes during implementation.
 
-### Snow availability guard
+## Snow availability guard
 
 A weighted average can produce misleading results if weather is otherwise excellent but there is effectively no snow.
 
@@ -108,7 +110,7 @@ If snow depth is below 5 cm and fresh snowfall is below 2 cm, cap the final skii
 
 This prevents a cold, sunny, windless day with no usable snow from being classified as a good skiing day.
 
-### Sanity checking
+## Sanity checking
 
 Before implementing the scoring model, I tested it against a few synthetic scenarios.
 
@@ -124,14 +126,6 @@ Using the initial scoring model, this produces approximately 61/100 because temp
 
 This is misleading. Snow availability is a prerequisite for skiing rather than just another independent weather factor.
 
-### Snow availability guard
-
-Decision:
-
-If snow depth is below 5 cm and fresh snowfall is below 2 cm, cap the final skiing score at 20.
-
-This keeps the weighted model simple while preventing otherwise good weather from producing a high skiing score when there is effectively no usable snow.
-
 ### Additional sanity checks
 
 I also considered several other scenarios:
@@ -144,7 +138,7 @@ The resulting behavior appears reasonable for a general recreational skiing scor
 
 The exact thresholds are intentionally approximate. The goal is a consistent and explainable suitability score rather than a professional mountain safety model.
 
-### Remaining uncertainty
+## Remaining uncertainty
 
 The skiing score does not account for:
 

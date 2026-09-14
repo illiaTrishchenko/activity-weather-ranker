@@ -15,3 +15,6 @@ The scoring models should remain small and explainable. I prefer a few meaningfu
 ## Activities
 
 - [Skiing](./skiing.md)
+- [Surfing](./surfing.md)
+- [Outdoor sightseeing](./outdoor-sightseeing.md)
+- [Indoor sightseeing](./indoor-sightseeing.md)

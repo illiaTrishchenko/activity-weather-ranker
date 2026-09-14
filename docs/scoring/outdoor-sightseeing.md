@@ -1,4 +1,6 @@
-### Initial research
+# Outdoor Sightseeing Scoring
+
+## Initial research
 
 For outdoor sightseeing, I define a good day as one that is suitable for a typical visitor walking around a town or city during daylight hours. It is not a score for hiking, cycling, or a specific person's heat or cold tolerance.
 
@@ -16,7 +18,7 @@ Temperature is also important, but I use a relatively broad comfort range becaus
 
 Sunshine improves the experience but is not required for sightseeing, while strong wind mainly acts as an additional comfort penalty.
 
-### Open-Meteo data
+## Open-Meteo data
 
 Open-Meteo provides daily forecast variables that are sufficient for this score:
 
@@ -30,7 +32,7 @@ Open-Meteo provides daily forecast variables that are sufficient for this score:
 
 I use daily data rather than aggregating hourly values. The result is one explainable score per day and avoids complexity that is not necessary for a general sightseeing forecast.
 
-### Decision
+## Decision
 
 Use a weighted score from 0 to 100:
 
@@ -49,9 +51,9 @@ Wind has the smallest weight. Moderate wind reduces comfort, especially in cold 
 
 `weather_code` is not given a separate weight because it overlaps with precipitation and sunshine. It is instead used for severe-weather caps.
 
-### Scoring model
+## Scoring model
 
-#### Apparent temperature
+### Apparent temperature
 
 `apparent_temperature_max` is used as a simple proxy for daytime sightseeing comfort.
 
@@ -67,7 +69,7 @@ The broad 10°C to 29°C usable range reflects the fact that city tourists can a
 
 Using the daily maximum is intentionally a simplification. It does not capture temperature variation throughout the day, but avoids introducing hourly aggregation for a general day-level recommendation. A more detailed version could evaluate apparent temperature during typical sightseeing hours.
 
-#### Precipitation
+### Precipitation
 
 `precipitation_sum` and `precipitation_hours` are evaluated together.
 
@@ -81,7 +83,7 @@ Initial thresholds:
 
 The use of `or` in the final two bands intentionally treats sustained precipitation as poor even when its total amount is relatively low.
 
-#### Wind
+### Wind
 
 `wind_speed_10m_max` is used to reflect the least comfortable part of the day.
 
@@ -93,7 +95,7 @@ Initial thresholds:
 - 35 to 50 km/h: poor
 - above 50 km/h: very poor
 
-#### Sunshine
+### Sunshine
 
 Use `sunshine_duration / daylight_duration` rather than a fixed number of sunshine hours. This avoids penalising short winter days and locations with different day lengths.
 
@@ -106,7 +108,7 @@ Initial thresholds:
 
 Even the lowest sunshine band retains some score because overcast but dry weather is still usable for city sightseeing.
 
-### Severe-weather guards
+## Severe-weather guards
 
 A weighted average can be misleading when an otherwise comfortable day includes conditions that make outdoor plans impractical or unsafe.
 
@@ -128,7 +130,7 @@ Decision:
 
 This allows short light rain to remain usable while preventing a high score for thunderstorms, severe precipitation, or fog that significantly reduces viewing conditions.
 
-### Sanity checking
+## Sanity checking
 
 Before implementation, I tested the model against a few synthetic scenarios:
 
@@ -143,7 +145,7 @@ The resulting behaviour appears reasonable for a general city sightseeing score.
 
 The exact thresholds are intentionally approximate. The goal is a consistent and explainable suitability score rather than a personalised thermal-comfort or safety model.
 
-### Remaining uncertainty
+## Remaining uncertainty
 
 The outdoor sightseeing score does not account for:
 
