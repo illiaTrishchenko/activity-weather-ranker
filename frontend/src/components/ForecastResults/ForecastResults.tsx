@@ -21,7 +21,9 @@ const ForecastResults = ({ forecast, isLoading }: IProps) => (
       {forecast.days.map((day) => (
         <ForecastDayCard day={day} key={day.date} />
       ))}
-      {isLoading && <div className={styles.loadingOverlay}>Updating forecast…</div>}
+      {isLoading && (
+        <div className={styles.loadingOverlay}>Updating forecast…</div>
+      )}
     </div>
   </section>
 );

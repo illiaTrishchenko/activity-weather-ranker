@@ -8,12 +8,7 @@ interface IProps {
   additionalInfo?: string;
 }
 
-const ActivityScore = ({
-  label,
-  score,
-  reasons,
-  additionalInfo,
-}: IProps) => (
+const ActivityScore = ({ label, score, reasons, additionalInfo }: IProps) => (
   <div className={styles.activityScore}>
     <strong>{label}</strong>
     <b className={scoreTone(score)}>{score}</b>
