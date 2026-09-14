@@ -1,0 +1,35 @@
+.appShell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+.heroCopy {
+  max-width: 640px;
+  margin-bottom: 36px;
+
+  h1 {
+    margin: 0 0 12px;
+    color: #172033;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    letter-spacing: -0.06em;
+  }
+
+  p {
+    color: #667085;
+  }
+}
+
+.errorMessage {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fef3f2;
+  color: #b42318;
+}
+
+@media (max-width: 560px) {
+  .appShell {
+    padding: 40px 16px;
+  }
+}

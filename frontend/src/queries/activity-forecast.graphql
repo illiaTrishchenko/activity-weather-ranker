@@ -1,0 +1,29 @@
+query ActivityForecast($input: ActivityForecastInput!) {
+  activityForecast(input: $input) {
+    location {
+      name
+      latitude
+      longitude
+      country
+    }
+    days {
+      date
+      skiing {
+        ...ActivityScoreFields
+      }
+      outdoorSightseeing {
+        ...ActivityScoreFields
+      }
+      indoorSightseeing {
+        ...ActivityScoreFields
+      }
+      surfing {
+        available
+        score
+        reasons
+        bestHour
+        unavailableReason
+      }
+    }
+  }
+}

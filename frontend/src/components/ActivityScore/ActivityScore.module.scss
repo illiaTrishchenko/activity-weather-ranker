@@ -1,0 +1,37 @@
+.activityScore {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 12px 0;
+  border-top: 1px solid #f0f1f3;
+
+  strong {
+    color: #344054;
+    font-size: 0.9rem;
+  }
+
+  b {
+    font-size: 1.25rem;
+  }
+
+  p,
+  small {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #667085;
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
+}
+
+.scoreGood {
+  color: #067647;
+}
+
+.scoreMixed {
+  color: #b54708;
+}
+
+.scorePoor {
+  color: #b42318;
+}
