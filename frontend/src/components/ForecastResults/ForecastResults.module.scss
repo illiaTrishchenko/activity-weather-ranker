@@ -1,0 +1,35 @@
+.forecastResults {
+  margin-top: 48px;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #172033;
+  }
+}
+
+.days {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.isLoading {
+  pointer-events: none;
+
+  > :not(.loadingOverlay) {
+    opacity: 0.5;
+  }
+}
+
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  border-radius: 14px;
+  background: rgba(248, 250, 252, 0.45);
+  color: #344054;
+  font-weight: 600;
+}

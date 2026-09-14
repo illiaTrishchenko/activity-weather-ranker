@@ -53,7 +53,6 @@ Prioritize:
 - loading and error states
 - tests for scoring logic
 
-
 ## Decision log
 
 ### Score interpretation
@@ -103,6 +102,14 @@ Question: What should happen if a place name has more than one valid geocoding r
 Assumption: Use the first result returned by Open-Meteo Geocoding API in the MVP and show the resolved place name and country in the interface.
 
 Reasoning: This keeps the initial flow small while making the implicit choice visible to the user. A future version could offer a result picker.
+
+### Place input validation
+
+Question: Should a value such as `123` be passed directly to the geocoding API?
+
+Assumption: A place must contain at least one Unicode letter. Leading and trailing whitespace is removed before validation.
+
+Reasoning: Open-Meteo can interpret numeric input as a postal-code fragment; for example, `123` resolves to Vienna because its postal codes include `1230`. Requiring a letter keeps the input aligned with the requested city-or-town interface while still accepting names with diacritics and non-Latin scripts.
 
 ### Indoor and outdoor sightseeing
 

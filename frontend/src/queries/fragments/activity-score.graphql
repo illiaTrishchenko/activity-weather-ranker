@@ -1,0 +1,4 @@
+fragment ActivityScoreFields on ActivityScoreType {
+  score
+  reasons
+}

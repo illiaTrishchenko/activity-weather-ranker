@@ -1,0 +1,21 @@
+/* eslint-disable */
+/** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+export type ActivityForecastInput = {
+  place: string;
+};
+
+export type ActivityForecastQueryVariables = Exact<{
+  input: ActivityForecastInput;
+}>;
+
+
+export type ActivityForecastQuery = { activityForecast: { location: { name: string, latitude: number, longitude: number, country: string | null }, days: Array<{ date: string, skiing: { score: number, reasons: Array<string> }, outdoorSightseeing: { score: number, reasons: Array<string> }, indoorSightseeing: { score: number, reasons: Array<string> }, surfing: { available: boolean, score: number | null, reasons: Array<string> | null, bestHour: string | null, unavailableReason: string | null } }> } };
+
+export type ActivityScoreFieldsFragment = { score: number, reasons: Array<string> };
+
+export const ActivityScoreFieldsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ActivityScoreFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ActivityScoreType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"reasons"}}]}}]} as unknown as DocumentNode<ActivityScoreFieldsFragment, unknown>;
+export const ActivityForecastDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ActivityForecast"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ActivityForecastInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"activityForecast"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"latitude"}},{"kind":"Field","name":{"kind":"Name","value":"longitude"}},{"kind":"Field","name":{"kind":"Name","value":"country"}}]}},{"kind":"Field","name":{"kind":"Name","value":"days"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"skiing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ActivityScoreFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"outdoorSightseeing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ActivityScoreFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"indoorSightseeing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ActivityScoreFields"}}]}},{"kind":"Field","name":{"kind":"Name","value":"surfing"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"available"}},{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"reasons"}},{"kind":"Field","name":{"kind":"Name","value":"bestHour"}},{"kind":"Field","name":{"kind":"Name","value":"unavailableReason"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ActivityScoreFields"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ActivityScoreType"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"score"}},{"kind":"Field","name":{"kind":"Name","value":"reasons"}}]}}]} as unknown as DocumentNode<ActivityForecastQuery, ActivityForecastQueryVariables>;
