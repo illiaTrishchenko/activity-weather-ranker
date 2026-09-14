@@ -8,7 +8,9 @@ interface IProps {
 
 const ForecastDayCard = ({ day }: IProps) => (
   <article className={styles.dayCard}>
-    <h3>{day.date}</h3>
+    <h3>
+      <time dateTime={day.date}>{formatDate(day.date)}</time>
+    </h3>
     <ActivityScore
       label="Skiing"
       score={day.skiing.score}
@@ -39,5 +41,14 @@ const ForecastDayCard = ({ day }: IProps) => (
     )}
   </article>
 );
+
+const DATE_FORMATTER = new Intl.DateTimeFormat("en", {
+  weekday: "long",
+  month: "short",
+  day: "numeric",
+});
+
+const formatDate = (date: string) =>
+  DATE_FORMATTER.format(new Date(`${date}T00:00:00`));
 
 export default ForecastDayCard;
