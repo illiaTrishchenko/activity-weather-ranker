@@ -29,8 +29,6 @@ npm install
 npm run start:dev
 ```
 
-Fill every variable in `backend/.env` with the corresponding Open-Meteo base URL and desired result/day counts before starting the server.
-
 The GraphQL endpoint is available at `http://localhost:3000/graphql`.
 
 In another terminal, start the frontend:
@@ -41,8 +39,6 @@ cp .env.example .env
 npm install
 npm run dev
 ```
-
-Set `VITE_GRAPHQL_URL` in `frontend/.env` to the backend GraphQL endpoint before starting Vite.
 
 Open the URL printed by Vite, normally `http://localhost:5173`.
 
