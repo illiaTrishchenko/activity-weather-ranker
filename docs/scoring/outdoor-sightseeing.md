@@ -10,8 +10,6 @@ The main factors identified for this score are:
 - sunshine
 - severe weather conditions
 
-Temperature, precipitation, wind, and sunshine are the main weather factors I consider relevant for general outdoor sightseeing.
-
 Precipitation has the strongest negative impact because prolonged or heavy rain directly disrupts walking and visiting outdoor attractions.
 
 Temperature is also important, but I use a relatively broad comfort range because visitors can adapt to moderately warm or cold conditions with appropriate clothing.
