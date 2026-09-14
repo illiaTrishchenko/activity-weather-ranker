@@ -56,6 +56,62 @@ Prioritize:
 
 ## Decision log
 
+### Score interpretation
+
+Question: Should the scores rank only the seven forecast days, or have an absolute meaning?
+
+Assumption: Each activity receives an absolute score from 0 to 100. A score of 80 represents broadly good conditions even if every other forecast day has a higher score.
+
+Reasoning: An absolute scale is easier to explain in the interface and makes an activity score meaningful without comparing every date in the forecast.
+
+### Activity availability
+
+Question: Should an activity that cannot be meaningfully evaluated for a location receive a low numeric score?
+
+Assumption: Return the activity as unavailable with an explanation rather than assigning a low score.
+
+Reasoning: A low score implies that the activity was evaluated and conditions are poor. When the data is not applicable, this would be misleading.
+
+### Surfing for inland locations
+
+Question: How should surfing be handled when the searched city or town is not on the coast?
+
+Assumption: Use the closest sea grid cell returned by Open-Meteo's Marine API only when it is within 25 km of the geocoded location. Otherwise return surfing as unavailable.
+
+Reasoning: The Marine API forecasts an offshore model grid cell, not a named surf break. The 25 km limit permits a geocoded town centre slightly inland but avoids presenting a surf forecast for a clearly inland place.
+
+### Surfing target user
+
+Question: What constitutes a good surfing day when surfer experience is not provided?
+
+Assumption: Score conditions for a recreational intermediate surfer.
+
+Reasoning: This establishes usable wave-height and period thresholds without optimising for either a beginner or an expert seeking larger surf.
+
+### Skiing target user
+
+Question: What kind of skiing does the score represent?
+
+Assumption: Score conditions for a general recreational skier at a managed ski resort, using marked and groomed pistes.
+
+Reasoning: This keeps the model focused on weather suitability and excludes backcountry-specific factors such as avalanche risk, route selection, and unmarked terrain.
+
+### Geocoding ambiguity
+
+Question: What should happen if a place name has more than one valid geocoding result?
+
+Assumption: Use the first result returned by Open-Meteo Geocoding API in the MVP and show the resolved place name and country in the interface.
+
+Reasoning: This keeps the initial flow small while making the implicit choice visible to the user. A future version could offer a result picker.
+
+### Indoor and outdoor sightseeing
+
+Question: Should the indoor sightseeing score be the inverse of outdoor sightseeing?
+
+Assumption: No. Indoor sightseeing has a neutral baseline score of 50 and receives bonuses for conditions that make outdoor activities less appealing.
+
+Reasoning: Good outdoor weather does not make museums and galleries unsuitable; it only makes outdoor alternatives more attractive.
+
 ### Open-Meteo research
 
 I explored the Geocoding, Forecast and Marine APIs.

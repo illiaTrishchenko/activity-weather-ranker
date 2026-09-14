@@ -2,6 +2,8 @@
 
 ## Initial research
 
+This score targets a general recreational skier at a managed ski resort, using marked and groomed pistes. It does not assess backcountry or off-piste skiing.
+
 The main factors I identified for a general skiing weather score are:
 
 - snow availability
