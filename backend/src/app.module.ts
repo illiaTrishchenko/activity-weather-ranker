@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { APP_PIPE } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller.js';
 import { AppResolver } from './app.resolver.js';
@@ -17,6 +18,13 @@ import { ForecastModule } from './forecast/forecast.module.js';
     }),
   ],
   controllers: [AppController],
-  providers: [AppResolver, AppService],
+  providers: [
+    AppResolver,
+    AppService,
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({ transform: true, whitelist: true }),
+    },
+  ],
 })
 export class AppModule {}

@@ -15,7 +15,8 @@ export class ForecastService {
   constructor(private readonly openMeteoService: OpenMeteoService) {}
 
   async getActivityForecast(place: string): Promise<ActivityForecastResultDto> {
-    const location = await this.openMeteoService.geocodePlace(place);
+    const normalizedPlace = place.trim();
+    const location = await this.openMeteoService.geocodePlace(normalizedPlace);
     const forecast = await this.openMeteoService.getWeatherForecast(location);
     const marineForecast =
       await this.openMeteoService.getMarineForecast(location);
