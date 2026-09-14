@@ -154,5 +154,8 @@ The skiing score does not account for:
 - slope altitude
 - local terrain
 - lift operation
+- the difference between weather at the searched city or town and conditions at a nearby ski resort
+
+The score uses weather at the geocoded location of the searched place, not data from a specific resort. In particular, snow depth in a town can differ substantially from snow depth at higher nearby slopes.
 
 These are treated as out of scope for this exercise.
