@@ -126,16 +126,41 @@ If snow depth is below 5 cm and fresh snowfall is below 2 cm, cap the final skii
 
 This prevents a cold, sunny, windless day with no usable snow from being classified as a good skiing day.
 
-### Sanity check
+### Sanity checking
 
-I tested the scoring direction against a few synthetic scenarios:
+Before implementing the scoring model, I tested it against a few synthetic scenarios.
+
+One scenario exposed a problem with using only a weighted average:
+
+- snow depth: 0 cm
+- fresh snowfall: 0 cm
+- temperature: -5°C
+- wind: 5 km/h
+- weather: clear
+
+Using the initial scoring model, this produces approximately 61/100 because temperature, wind and weather conditions are excellent.
+
+This is misleading. Snow availability is a prerequisite for skiing rather than just another independent weather factor.
+
+### Snow availability guard
+
+Decision:
+
+If snow depth is below 5 cm and fresh snowfall is below 2 cm, cap the final skiing score at 20.
+
+This keeps the weighted model simple while preventing otherwise good weather from producing a high skiing score when there is effectively no usable snow.
+
+### Additional sanity checks
+
+I also considered several other scenarios:
 
 - deep snow + moderate fresh snow + light wind + below-freezing temperature → very high score
 - existing snow + no fresh snow + slightly positive temperature → still usable, but lower score
-- little or no snow + otherwise good weather → low score
 - sufficient snow + extreme wind → strongly reduced score
 
-The exact thresholds are intentionally approximate. The goal is a consistent and explainable recreational suitability score rather than a professional mountain safety model.
+The resulting behavior appears reasonable for a general recreational skiing score.
+
+The exact thresholds are intentionally approximate. The goal is a consistent and explainable suitability score rather than a professional mountain safety model.
 
 ### Remaining uncertainty
 
