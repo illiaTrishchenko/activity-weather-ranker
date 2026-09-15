@@ -63,6 +63,14 @@ Assumption: Each activity receives an absolute score from 0 to 100. A score of 8
 
 Reasoning: An absolute scale is easier to explain in the interface and makes an activity score meaningful without comparing every date in the forecast.
 
+### Best-day presentation
+
+Question: Should the interface explicitly select a best day for each activity?
+
+Assumption: No. The MVP presents the seven days chronologically with absolute 0–100 scores, allowing users to compare them while preserving calendar context.
+
+Reasoning: Highlighting or sorting the best days could make the answer faster to scan, but it is an interface enhancement rather than a requirement of the scoring model. It remains a possible future improvement.
+
 ### Activity availability
 
 Question: Should an activity that cannot be meaningfully evaluated for a location receive a low numeric score?
